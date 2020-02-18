@@ -1,0 +1,16 @@
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\bin\Debug\netcoreapp2.1\appsettings.Development.json
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\bin\Debug\netcoreapp2.1\appsettings.json
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\bin\Debug\netcoreapp2.1\Movies.API.deps.json
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\bin\Debug\netcoreapp2.1\Movies.API.runtimeconfig.json
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\bin\Debug\netcoreapp2.1\Movies.API.runtimeconfig.dev.json
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\bin\Debug\netcoreapp2.1\Movies.API.dll
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\bin\Debug\netcoreapp2.1\Movies.API.pdb
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\obj\Debug\netcoreapp2.1\Movies.API.csprojAssemblyReference.cache
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\obj\Debug\netcoreapp2.1\Movies.API.RazorAssemblyInfo.cache
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\obj\Debug\netcoreapp2.1\Movies.API.RazorAssemblyInfo.cs
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\obj\Debug\netcoreapp2.1\Movies.API.AssemblyInfoInputs.cache
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\obj\Debug\netcoreapp2.1\Movies.API.AssemblyInfo.cs
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\obj\Debug\netcoreapp2.1\Movies.API.RazorTargetAssemblyInfo.cache
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\obj\Debug\netcoreapp2.1\Movies.API.dll
+C:\Users\MFineout\Desktop\C#\httpclient-consume-apis-dotnet-core\02\demos\start\Movies.API\obj\Debug\netcoreapp2.1\Movies.API.pdb
