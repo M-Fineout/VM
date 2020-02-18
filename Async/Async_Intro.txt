@@ -1,0 +1,36 @@
+Being synchronous means that it's going to run everything on the same thread as our application UI. This is also known as running everything on the UI thread.
+
+When the application leverages asynchronous principles, it means that we can offload work to a different thread to go ahead and load all this information from the API without locking up the UI thread of our application.
+
+This utilizes HttpClient as opposed to WebClient. HttpClient can only perform asynchronous operations against our web resources.
+
+Since we are relieving our UI thread of work, it can now focus on user input.
+
+** 
+Asynchrony is when work is being executed on a different thread and does not impact the main thread of the application.
+
+The async keyword is a way for us to indicate that this method here will contain asynchronous operations. The await keyword is a way for us to indicate that we want to get back to this part of the code once the data is loaded from our API.
+
+Async and Await should ALWAYS be used together...
+
+Async principles are suited for many I/O operations (input/output)
+-Reading and writing from disk or memory
+-Database operations
+
+**Await
+The await keyword will pause execution of the method until a result is available without blocking the calling (UI) thread. It also makes sure that there is no exceptions or problems with the Task that it's currently awaiting. 
+
+The await keyword is a way for us to indicate that we want to get the Result out of this asynchronous operation only once the data is available without blocking the current thread. This here gives us the HttpResponseMessage. We also need to make sure that we read the content, and you'll see here that ReadAsString is also an asynchronous operation, and VS hints to us here that we need to await this as well because we could of course say ReadAsStringAsync and then call the Result property, but this would block again and make this code run synchronously, and in a lot of cases, calling .Result or .Wait will in fact deadlock the application.
+
+In an ASP.NET controller..
+
+public async Task<ActionResult> Example(string example)
+
+Our action inside of our controller returns a Task of ActionResult. This means that ASP.NET will have a reference to the ongoing asynchronous operations and will then, when all the results are available, get the ActionResult out of this action.
+
+NOTE: Suffixing asynchronous methods with async is no longer a design guideline
+
+	 Whenever you have a task inside your asynchronous method here, you pretty much always want to await that. 
+
+
+**The big benefit of using async and await inside ASP.NET is to relieve IIS or the web server that you were using so that it can go ahead and work with other requests as your data is being loaded from disk, the database, or from another API.**

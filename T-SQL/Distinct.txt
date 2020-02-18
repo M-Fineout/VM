@@ -1,0 +1,12 @@
+The purpose of DISTINCT is to eliminate duplicate rows. 
+
+Now technically speaking, a set that had duplicates to begin with is not a proper set. 
+
+A row is considered a duplicate of another row only if all its elements or columns are equal. 
+
+Like GROUP BY, NULLS are treated by DISTINCT as being the same, even though, technically not equal. In fact, DISTINCT and GROUP BY share a lot of similarities. 
+
+Both take multiple source rows and group them into a single output row. The difference is that DISTINCT is applied after all select expressions have been evaluated and it applies to the entire select expressions set so aggregates can be used and don't make much sense. 
+
+	DISTINCT doesn't change the shape of the set like GROUP BY does. It can only reduce the number of 	rows by eliminating duplicate ones.
+

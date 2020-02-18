@@ -1,0 +1,11 @@
+A deadlock, as you might imagine, is a real terrible situation to end up in. It means that we could, for instance, have our UI thread. The UI thread is locked because it's waiting for some operation to complete, and that operation cannot complete unless it can communicate back to the UI thread.
+
+If we create a deadlock, what happens?
+
+We have a task and we can simply call Wait here and hope that it won't proceed executing the code beneath it until this asynchronous operation has completed. Running the application results in a deadlock, so that's rather terrible. But that kind of proves a point that it's super easy for us to get a deadlock, especially when introducing async and await. 
+
+This is because everything inside the state machine is being executed on the original context. That means that the state machine is being executed on our UI thread. So if that's the case, this means that we're blocking our UI thread so that it cannot proceed executing the state machine, which means that the thread that's currently completing cannot communicate back to the state machine that it's completed.
+
+	Never forcefully block a task using Wait() or calling Result! (note: using the result property is 	fine AFTER the await keyword) 
+
+It's so easy for us to get a deadlock, and it's mainly because we forget about the fact that the state machine runs on our original context. And when we're trying to block that original context by using Wait or trying to get the Result property, that will lock the original context so there's no way for the state machine to be marking this thread as completed. So if there's really one thing that you should take out of this, it's to simply avoid blocking your asynchronous operations because that kind of makes asynchronous operations pointless anyways.

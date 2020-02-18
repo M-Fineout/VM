@@ -1,0 +1,5 @@
+A vague general statement is that in "synchronous" systems, things "wait" for other things, while in "asynchronous" systems, things don't "wait".
+
+The other interpretation is blocking where one thing makes a request to another thing and then sits there waiting for the response. The "waiting for the response" aspect is what is called "blocking". Synchronous calls/messages would fall under this. 
+
+The alternative is to send a message and then continue on without waiting for a response. Any response is either ignored or collected in a "mailbox" to be read at some later time. This is often handled by the framework you're using which will then dispatch events to which you register.

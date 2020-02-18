@@ -1,0 +1,20 @@
+In the entire MVC story, the controller has a very central and crucial role. You can see the controller as the manager or the traffic agent within an MVC application. It will use the model and the view to, in the end, create the response that will be sent back to the client. The controller will thus be responsible to respond to user interaction. 
+
+When the user has, for example, clicked on a button and the request is sent to the server, that request will be picked up by a controller. It's therefore the controller that has the end responsibility to create a response based on the user interaction. In doing so, the controller is the party that will directly interact with the model. 
+
+It's the controller that will be updating the model in response to user interaction. By using the model for this, the controller doesn't need to know how the actual data persistence works. As we've already seen, it's the role of the model to hide these details from the controller.
+
+It's actually a method that will be invoked on the controller when a request is received. Such a method is an action or action method. The method will then execute, and typically in the case of MVC, it will return at the end a view as a result. 
+
+Sometimes the view is receiving some data, in this case, the list of pies exposed or returned by the pieRepository. This data will then be used in the view. Remember that the view, as we'll see soon in more detail, is in fact just a template. It will receive the model data that it will need to display correctly.
+
+	public ViewResult List()
+	{
+		return View(_pieRepository.Pies);
+	}
+
+Implementing a controller:
+
+We will in here need access to our repositories. We'll need access to data, that is, let's say, controlled via the repositories. So we introduce a private fields and use the interfaces for that. So bring in a private and make it readonly. This doesn't get initialized automatically. We'll do that using the constructor. So I'll bring in a constructor. And to that constructor, we are now going to pass in these private fields. Now, these are actually going to be injected in our controller because we've registered them earlier in the startup. Whenever a class is going to require any of these types, they will be injected automatically by the built-in dependency injection system. Therefore, we don't have to new them up.
+
+ 

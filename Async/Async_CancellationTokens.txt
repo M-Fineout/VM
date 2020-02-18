@@ -1,0 +1,9 @@
+CancellationTokenSource is used to signal that you want to cancel the operations that utilize the token.
+
+Canceling a task does not magically stop the task. You have to listen for the cancellation and handle it.
+
+The CancellationTokenSource is coupled with something called the CancellationToken. The Cancellationtoken is what we pass to asynchronous operations, which they can then use to indicate if it's canceled or not. So the pattern that we were using to change our Search button to a Cancel button is to first check if our CancellationTokenSource is initialized. If we already have a CancellationTokenSource, that means that we've executed this part of the code before. And if we have the CancellationTokenSource, we'll signal that we want to cancel the current operation. Then we'll set the CancellationTokenSource to null and return from the Click event handler. This will, of course, signal to the previously executed asynchronous operation that the Search_Click event handler triggered to say that it should now cancel the ongoing operations, and that will in its turn trigger those continuations and so forth. 
+
+On Task.Run, we have an overload that allows us to pass a CancellationToken, and of course, we need to pass this when we call the method as well, and we get the CancellationToken out of the CancellationTokenSource.
+
+We can of course use the CancellationToken with things like the HttpClient and a lot of other asynchronous libraries out there. So what we simply do here is that we pass the CancellationToken into our GetAsync of the HttpClient. The HttpClient will then listen for this and throw an exception if the cancelation was requested.

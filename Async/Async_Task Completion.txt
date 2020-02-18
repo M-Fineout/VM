@@ -1,0 +1,12 @@
+On the Task object, we can use something called WhenAll or WhenAny. WhenAll will allow us to pass an IEnumerable of Task. This here will allow us to say, let us know when all of these tasks are done. We could also say that let me know when any of these are done, or even I want to know which one is fastest.
+
+Task.WhenAll will in fact return a list of all the results that we got from asynchronous operations.
+
+Await will ensure that if any of the Tasks failed within WhenAll or WhenAny, the exception will be propagated back to the calling context.
+
+In order to concatenate all of the results we can use SelectMany.
+
+	SelectMany turns List<List<T>> into List<T> --flattens it (I believe)
+
+
+ 

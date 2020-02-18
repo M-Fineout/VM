@@ -1,0 +1,25 @@
+The TaskCompletionSource allows us to specify what type of result that we're expecting out of the task that we're going to use. So as it's indicating here, the TResult here represents the producer side of a Task of TResult.
+
+When you create an instance of your TaskCompletionSource, you can specify something called the TaskCreationOptions. It's best practice to use the task creation option (in the constructor) that says you're going to run the continuation asynchronously. This avoids running the continuation in line on the same thread. 
+
+	TaskCreationOptions.RunContinuationsAsynchronously
+
+So now that we have our TaskCompletionSource, how does that fit into the picture? You'll notice here that we have a few real interesting things on our TaskCompletionSource. We can do things like setting the result, and we can get a task. The Task here is something that we can use in order for us to await this somewhere else. 
+
+	TaskCompletionSource doesn't actually start any asynchronous operations. It's just a way to create 	an awaitable which will potentially get a result.
+
+So what we're going to end up doing here is that when the work has finished from our ThreadPool we're going to indicate to our TaskCompletionSource that we have a result, or a potential exception, and that will indicate to the Task that it's completed. 
+
+So whosever awaiting this somewhere else will then be able to retrieve the result, and it won't proceed to the continuation unless we set the result. 
+
+So once we've loaded all the files from disk, we'll use our TaskCompletionSource to indicate that we have a result. 
+
+So what this is doing here is that it's loading and processing the file using non-asynchronous methods, but doing that on a separate thread because we queued that onto the ThreadPool. 
+
+In this example...
+
+When we have a result available, we'll filter out the prices that we want based on the ticker, and then we'll set the result on our TaskCompletionSource so whoever's awaiting this can then go ahead and grab the result.
+
+Use TaskCompletionSource to create awaitables out of legacy code that don't leverage the Task Parallel Library.
+
+"So now we introduced the TaskCompletionSource in order for us to be able to use the async and await keywords together with components that don't necessarily use the Task Parallel Library themselves. You can combine this with other types of asynchronous principles, like the event-based asynchronous patterns or threading. You can also, of course, use it for other things, like when you receive an event for things like when you're closing Notepad. So using the TaskCompletionSource is really powerful if you're working with libraries that don't expose tasks for you to await, but may have operations like callbacks or events. So now there's really no reason for you not to use async and await in your applications."  

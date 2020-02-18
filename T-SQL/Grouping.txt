@@ -1,0 +1,32 @@
+Suppose we create a grouping with one output row for each group:
+
+We can't refer to multiple values when the output row is just a single row. It doesn't make any sense like we saw with a customer's heights and shirt colors. 
+
+It's easy to visualize it when you think about it as if the set transforms to this hybrid shape of elements within each group.
+
+One value for all the GROUP BY expressions, but potentially many for each of the other columns. 
+
+The only way to reference a column which is not part of the GROUP BY expression is to instruct SQL Server to either pick one of the values from the group or calculate a single value based off them.
+
+This happens to be the definition of an aggregate function. 
+
+	"Aggregate functions operate on a set of individual elements, but return just one value, just what 	the doctor ordered for our groups. You've been using aggregate functions all your life: Minimum, 	maximum, average, count, these are all aggregate functions. They take in a set of values and 	return one value."
+
+---------------------------------------------------------------
+The HAVING clause takes place after the set has been grouped by the GROUP BY clause. 
+
+It operates on the group set and can no longer reference the individual rows. This means it will eliminate whole groups at once and it also means that it can use aggregate functions for its predicates. 
+
+For Ex: Having can filter out countries with less than two customers and this is something we simply couldn't do in the WHERE clause.
+---------------------------------------------------------------
+The purpose of DISTINCT is to eliminate duplicate rows. 
+
+Now technically speaking, a set that had duplicates to begin with is not a proper set. 
+
+A row is considered a duplicate of another row only if all its elements or columns are equal. 
+
+Like GROUP BY, NULLS are treated by DISTINCT as being the same, even though, technically not equal. In fact, DISTINCT and GROUP BY share a lot of similarities. 
+
+Both take multiple source rows and group them into a single output row. The difference is that DISTINCT is applied after all select expressions have been evaluated and it applies to the entire select expressions set so aggregates can be used and don't make much sense. 
+
+	DISTINCT doesn't change the shape of the set like GROUP BY does. It can only reduce the number of 	rows by eliminating duplicate ones.

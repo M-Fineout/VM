@@ -1,0 +1,38 @@
+The Task represents an asynchronous operation.
+
+It allows us to get the result out of the asynchronous operation, to schedule work to be executed once asynchronous operation is done, as well as knowing if there's a problem, canceling the operation, among other things...
+
+Task.Run() queues the work passed as the action to run on a different thread by using the thread pool.
+It returns a Task that represents the ongoing work.
+
+A Task can easily force block the UI so be very careful when wrapping synchronous code and make sure it does not contain blocking code.
+
+We might have portions of code that take a little bit of time to run, or we use libraries that don't expose any synchronous versions. These cases are the perfect fit for where we want to introduce Task.Run() to execute our asynchronous operations. (on different threads)
+
+To perform asynchronous operations without await and async:
+
+Assign a local variable to capture the Task:
+
+	var someTask = Task.Run(() => { Some Code });
+
+ContinueWith creates a continuation which runs asynchronously. It also returns a Task.
+
+	someTask.ContinueWith(t => { var taskResult = t.Result });
+
+You'll see here that we have a method called ContinueWith on our Task. This here creates a continuation that executes asynchronous when the target Task is completed. This means that the continuation is also executed on a different thread. And just as we did with Task.Run, we can represent the operation that we want to run using an anonymous action. 
+This method will get a Task passed to it when it's executing. The Task that we get passed into ContinueWith is in fact the same thing as our someTask. This here allows us to grab things like the Result or potential exceptions. So how do we get the result out of our Task? Do you remember the Result property that I told you to never use? Well, you're actually going to use that now. If you recall, I mentioned that you're allowed to use the Result property as long as the Task has completed. Because in this case here, we will actually have a Result inside the Result property; therefore, it doesn't lock any threads. 
+
+What's also interesting here is that ContinueWith in fact returns a Task as well. Because the continuation will execute asynchronously, that means we get a reference to that asynchronous operation as well. That means that you could chain another continuation, which returns a Task, and then you can chain another continuation, and so forth. You can have as many continuations as you'd like. And of course, we still need to do the Dispatcher.Invoke. As this is an asynchronous operation, it'll run somewhere else. So we need to use the dispatcher in order for us to update our UI.
+
+The application is now as good as the one that we had when we used the async and await keywords. It doesn't lock up, and it allows us to schedule the work to be executed once these different asynchronous operations are completed. Of course, if we compare these to the async and await approach, this here is a little bit more chatty. With a bit more code, it's more error prone, and it doesn't read as nice as the async and await version did. There is also a big difference that the continuation is in this case executed on a different thread, which is a little bit problematic. That means that we need to do the Dispatcher.Invoke every time we want to talk to the UI.
+
+These asynchronous operations could spawn different asynchronous operations themselves. They could even leverage the async and await keywords inside themselves.
+
+
+	var someTask = Task.Run(async () => { await Some Code });
+
+This does not return async void, it returns a Task.
+
+Using TaskContinuationOptions allows us to specify behaviors through the scheduler. We can, for instance, say that it should only execute this continuation when the status of our task is not faulted, or for instance, we can turn it around and say that it should only execute this when the task are ran to completion.
+
+This allows us to validate asynchronous operations when async and await are not being used.

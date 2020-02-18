@@ -1,0 +1,37 @@
+With C# 8 and .NET Core 3.0, they introduced something called asynchronous streams. This will allow us to work with streams of data no matter if the data is coming from the web, database, or disk, or any other asynchronous operation. The idea here is that we can process items and data as it arrives to our application. 
+
+Create some method which returns an IAsyncEnumerable
+
+The IAsyncEnumerable is a little part of the magic of what's going to happen in our application. The IAsyncEnumerable allows us to dictate that we now have an asynchronous enumeration so that we can retrieve and work with each item as they're available to process.
+
+So we want this to be asynchronous, which means that we need to mark our method as async. You'll notice here that we don't need to return a task. We can simply use the async keyword together with the IAsyncEnumerable in order for us to indicate that we want an asynchronous enumeration. Of course, this allows us to use the await keyword so we can simulate that it takes a little bit of time to load some data and then return some data back to the caller.
+
+Of course, normally when we return something to the caller, we simply use the return keyword. But since we are now setting up an enumeration, we need to leverage something else. We need to leverage the yield keyword to indicate that we now have an item available to process. 
+
+	public async IAsyncEnumerable<T> GetData()
+	{
+		await Task.Delay(500); //simulate time passing
+		yield return new T{}; // (T-object)
+	}
+
+Using yield return with the IAsyncEnumerable will signal to the iterator using this enumerator that it has an item to process.
+
+But now we need a way for us to leverage this in our application. Let's jump over to our MainWindow and leverage this stream of data. This method is still marked as async. Now what we want to do here is to leverage our new stream of data. 
+
+In order for us to dynamically add items to the UI as they arrive to the application, we are first going to set up something called the ObservableCollection. Let's now go ahead and leverage our streaming service. What we've done previously is simply using the await keyword in front of the method call that we're doing when we are calling something that's asynchronous. 
+
+In this case though, it's a little bit different because we are now returning an enumeration that will asynchronously allow us to retrieve each item. So instead of us having the await keyword in front of our particular method call, we're going to use the await keyword in front of a foreach loop where the foreach loop will then make sure that it's properly awaiting each item in this enumeration. 
+
+If we simply look at this piece of code here, what it's telling us is that it's going to run a foreach loop, so each item in our collection will asynchronously be delivered to our foreach loop. 
+
+	await foreach (var item in someClass.GetData())
+	{
+		//Logic (Display to UI)
+	}
+
+As soon as the iterator gets an item from the asynchronous stream, you'll be inside the body of the iterator to handle the result.
+
+Summary:
+
+So the asynchronous streams allows us to asynchronously retrieve items. It's super simple. You apply the await keyword in front of your foreach loop. Inside your streaming services, you simply use the async keyword together with the IAsyncEnumerable, the await keyword, as well as the yield return.
+

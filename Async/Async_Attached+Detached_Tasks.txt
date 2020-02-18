@@ -1,0 +1,53 @@
+When you introduce parallel or asynchronous operations, you might have tasks that need to spawn their own tasks as well. 
+
+Now, these nested tasks are also known as child tasks, and the task they originate from is known as the parent. Now, of course, there are ways for us to configure how these child tasks operate. Although, in order for us to do that, we cannot simply use Task.Run. 
+
+Task.Run doesn't have an overload that allows us to configure what's known as the TaskCreationOptions. In fact, Task.Run is simply a shortcut of using the TaskFactory and starting a new task from that. But the TaskFactory allows us to set a whole lot more options. 
+
+So we can use the method StartNew on our Task.Factory, and this is, in fact, what Task.Run uses internally. 
+
+These are the defaults that Task.Run will use:
+
+	Task.Factory.StartNew(() => { },
+		CancellationToken.None,
+		TaskCreationOptions.DenyChildAttach,
+		TaskScheduler.Default);
+
+	Task.Factory.StartNew(() => { });    -- this will simply queue an operation on our ThreadPool.
+
+Of course you will need to await this asynchronous operation as well...
+
+	Note: For long running tasks, use Task.Factory.StartNew together with the 	      TaskCreationOptions.LongRunning
+
+It'll immediately schedule off the work for each nested task that we have in our parent task here. 
+
+With Detached child tasks, queuing work completes instantly. 
+So the parent task will be 'completed' immediately. --even though its children are still processing logic.
+
+Although, what we can do now is that we can configure that we want to attach these to the parent task. We can indicate that we want to attach this particular task to the parent. 
+
+	Attaching a task to its parent task will only mark the parent task as completed when the attached 	tasks are completed. -- TaskCreationOptions.AttachedToParent
+
+Fun Fact:
+
+If the parent task is configured with DenyChildAttach, setting this option has no effect, so that'll just then work as a detached nested or child task. So if we were to use Task.Run and then use the Task.Factory .StartNew within Task.Run, we would not be able to attach to that particular parent. (Since Task.Run has DenyChildAttach set by default..)
+
+--------------------------------------------------------------------------------
+Normally what you get when you're doing Task.Run, internally you have an async and await, and then that returns a value, that would give you the particular value. That's because not only does Task.Run work as a shorthand of just introducing the TaskCreationOptions, it will also automatically unwrap.
+
+So that means that if we want to get a result out of this operation, normally when doing Task.Run we'd do await operation, and the content of the result variable will then be our stock prices. Although, in our case here, what's in fact returned from our anonymous method is a task of our IEnumerable of stock prices. So this means that operation here will, in fact, also return a task. So in order for us to get the stock prices out of our operation here when using the TaskFactory, we'll have to do await to first get the internal asynchronous operation and then do await once more to get our IEnumerable of stock prices.
+
+	var result = await await operation;
+	return result;
+
+Task.Factory.StartNew(async () => 42) will return Task<Task<int>>
+Task.Run(async () => 42) will return Task<int>
+
+To alleviate this you can use .Unwrap()
+
+This creates a proxy task that represents the asynchronous operation of a Task of a Task of T. So pretty much as the example shows here, we can do await Unwrap, and that'll give us the IEnumerable of StockPrice instead of giving us the Task of IEnumerable of StockPrice. So now when we unwrap this task here, we no longer need the two await keywords.
+
+Task.Run does this for us!
+
+ 
+

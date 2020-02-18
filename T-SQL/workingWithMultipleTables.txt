@@ -1,0 +1,35 @@
+STEP 1 - Cartesian Product
+
+Every join begins with a cartesian product. 
+
+A cartesian product means that every element from the 'orange' set is matched with every element from the 'blue' set to create the 'green' set you see on the slide*. 
+
+	This is known in SQL as a cross join. 
+
+Orange set cross join blue set results in the green set. 
+
+For a SQL cross join, processing stops here and the cartesian product moves on to the next phase, but cross joins are not often useful. Typically, we only want to match rows from both sets based on some common denominator. 
+
+	We might want to see a customer with his orders or an order where the items that were sold in that 	order. We rarely need to join a customer to all orders or an order to all items. 
+
+This is known in SQL as an inner join. 
+---------------------------------------------------------
+STEP 2 - Matching Rows
+
+An inner join begins with a cartesian product from the previous step and requires specifying a matching condition called a join predicate. 
+
+	Orange.Character = Blue.Character results in Orange.X = Orange.X being true
+	This results in groups of XX...
+
+This will be used to evaluate each pair of elements from the cartesian product. Only pairs for which the predicate evaluates to true will be kept and all others will be eliminated from the set. In this example, the predicate states that the characters need to be the same in both sets and the only pair that evaluates to true is DB (?), and therefore, it's the only one that's kept and all the others are eliminated. 
+
+Inner join processing stops at this point and the query continuous with only the matching pairs being passed to the next phase.
+------------------------------------------------------------
+STEP 3 - Adding Reserved Rows
+
+Let's say we want to keep all elements from the 'orange' set regardless of whether they had a matching element in the 'blue' set. To do that, we need to designate the orange set as a reserved set by stating a left outer join instead of an inner join.
+
+ The left keyword designates the set on the left as the reserved set. When we specify an outer join, SQL Server goes back and reintroduces all of the elements or the rows from the orange set that failed to pass the predicate evaluation in the previous step with the inner join.
+
+Since they have no matches, what would we pair them with? SQL Server has no choice, but to compliment all the reserved elements that were reintroduced with a null indicating they had no match from the blue set.  
+

@@ -1,0 +1,69 @@
+For testing you may want to simulate an async call to an api or data source without actually making that expensive call.
+
+"For instance, we can return a Task that's already marked as completed. You normally do this when you override things that require you to return a Task, but you don't really do any asynchronous operations, so you don't really care about creating the Task."
+
+You can simulate an async operation by using Task.FromResult
+
+Task.FromResult creates a task that completed successfully with a specific result. 
+
+It allows us to represent a Task that executed without even in fact running anything asynchronous. So now when we consume this mocked service, the interface is identical and we can use the async and await keywords, and we can use the continuations. 
+
+-------------------------------------------------
+
+The ConcurrentBag is a thread-safe collection, which allows us to add values for multiple different threads without having to worry about data being lost on the way. If you were to use a List of StockPrice, that's not thread safe, so you could end up losing data when you add that to the collection.
+
+	ConcurrentBag<T> is essentially a thread-safe list<T> or other collection..
+
+	List<T> is not threadsafe! --- data could be lost!
+
+	We can add values to this as Tasks complete and chain a continuation onto multiple different Tasks. This allows us to handle the result as it gets back to the application. 
+
+	Such as returning the values of a dataset as they are processed, as opposed to after they have been processed.
+
+--------------------------------------------------
+
+ConfigureAwait can be used when you want to let the await keyword know that it doesn't have to marshal back to the original context.
+
+Ex. You make an async call from the UI (original context) but you don't want the program to return back to the UI after the async Task is returned: => ConfigureAwait(false)
+
+	"ConfigureAwait allows us to specify if we want to continue on the captured context. And of course, this defaults to true, which allows us to execute the continuation on the captured context. So what do you reckon happens if we change the continuation to not execute on our captured context? If you guessed that we would have a problem because we are doing cross threading, you guessed right. Because what happens here is that when we try to update the Notes, we're no longer on the original context, which means that we're no longer on the UI thread." 
+
+	System.InvalidOperationException - "The calling thread cannot access the object because a different thread owns it."
+
+Thus, you cannot update Notes from the other thread!
+
+But ConfigureAwait only affects the continuation in the current method that you are operating in. 
+
+ConfigureAwait is really powerful as it allows us to continue executing the code without marshaling back to the original context. That means that we can have an improvement on the performance of the application as it doesn't have to wait for the particular context, in this case, the UI thread, to continue executing the continuation. Now this also means that there shouldn't be any code in your continuation that will need to leverage things like operating on our UI.
+
+ConfigureAwait should therefore be used when you don't care about the original context!
+
+In traditional ASP.NET:
+
+When you apply ConfigureAwait in traditional ASP.NET, it will just continue executing the continuation on the same thread. This means that it doesn't have to queue the continuation on the thread pool, but it'll just continue executing the continuation on the current thread, and that's of course a lot quicker.
+
+	In ASP.NET 4.5 setting ConfigureAwait(false) means using the current Task's thread to execute the continuation.
+
+ Now one of the famous and common problems in ASP.NET when working with async and await and introducing ConfigureAwait is working with things like the HttpContext. You'll notice here that we have our System.Web .HttpContext. Now of course, we would probably be better off using the property HttpContext in our controller because that will fix a lot of things for us, but this here illustrates a problem. If we step through the code and go into GetStocks, you'll notice here that when we were calling LoadStocks in our DataStore, we were also configuring the awaiter to say that we don't care about coming back to the original context. 
+
+This means that the code on the next line, which is then trying to get the HttpContext, is going to execute on the same thread that our asynchronous operation was executing on. And what you notice here is that we no longer have the HttpContext. -- Because you have not returned to the original context!
+
+Our HttpContext is now set to null, and that's only because we introduced ConfigureAwait false because the traditional System.Web .HttpContext .Current didn't flow across to the continuation if you set ConfigureAwait to false. 
+
+So what should you do??
+
+If you really want to use the HttpContext, you are better off getting it from the application instance. This here will not return null in the continuation if you set ConfigureAwait to false.
+
+	HttpContext.ApplicationInstance.Context
+
+HOWEVER!!
+
+ASP.NET Core doesn't leverage asynchronziation context, which means it doesn't capture the context like traditional ASP.NET, and therefore using ConfigureAwait(false) is useless!
+
+There is no such thing as going back to the captured context!
+
+So when is it appropriate to use ConfigureAwait false? 
+
+Whenever you're building libraries, if you're a library developer, you don't know if the people that are using your library will be building WPF, WinForms, ASP.NET 4.5, or ASP.NET Core, or Xamarin, or any other type of .NET application, so use ConfigureAwait false when you don't care about coming back to the original context. 
+
+And in a lot of situations in libraries, you really don't need to do that, so libraries should always include ConfigureAwait false for their awaiters because that way the code inside your libraries, they will work as fast as possible without having to switch between threads.

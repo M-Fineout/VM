@@ -1,0 +1,23 @@
+Suppose what we're doing here is we're changing the value of total for multiple different places at the same time. This here will give us a rather random experience. So how do we solve this? Well, we can use something that allows us to increase the value in a thread-safe manner. Well, in order for us to change the value of a decimal, we cannot use any atomic operations. If we were, for instance, to work with integers, we could use atomic operations through the Interlocked class. 
+
+Personally though, I don't particularly like that I have to cast this to an integer. So is there another way for us to do this? We'd have to introduce something that ensures that we're the only ones currently updating the object. So we can introduce a static object in our class that we can use as a lock. Think of this as locking the door when we are performing the add operation to our particular decimal. So we'll introduce this object outside of the method. This here is a static object.
+
+	static object syncRoot = new object();
+
+It is commonly referred to as the syncRoot.
+
+So let's introduce a lock that allows us to in a safely manner update our total variable. So now what's happening is that we're locking the door.
+
+	lock(syncRoot)
+	{
+	  perform logic
+	}
+
+Whenever someone else tries to lock this, they have to wait for us to unlock the door. 
+
+In this case, that means that all the code inside this code block here can safely update total, but we don't want to run the computation in here because that means that we're going to have the door locked when we don't really need to. 
+So we'll perform the computation outside of our locked door, and then after we've got the value, we'll update the total inside our locked door in a safe manner. 
+
+	Only lock exactly the amount of time you really need to!
+
+Try to think about how you can optimize your code to have as little side effects as possible, especially when we introduce parallel and asynchronous patterns. Also note that you should be very cautious when using the locks in your applications, especially if you're using nested locks, which could end up causing deadlocks if you're not paying attention. 

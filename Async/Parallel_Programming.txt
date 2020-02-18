@@ -1,0 +1,41 @@
+Parallel programming allows you to break down a problem, be it large or small, and compute each part independently. 
+
+Parallel programming in .NET can take many forms. We can, for instance, use threads, the Task Parallel Library, Parallel Extensions, or Parallel LINQ.
+
+Now the biggest difference between parallel and asynchronous programming is that in asynchronous programming, we can schedule a continuation.
+
+Now the Parallel Extensions live side by side with our Tasks, and the reason for that is because the Parallel Extensions internally leverage the Task Parallel Library. That means that if you use the Parallel Extensions, it'll use the Tasks internally.
+
+Given the fact that everyone's computer is different, you don't know how many cores you have in the computer that will execute your applications. The Parallel Extensions will take care of calculating the most efficient way of dividing our tasks among the different cores that you have available by distributing that efficiently across the different cores that you have available on your system.
+
+	"In relation to computer processors, a core is the processing unit which receives instructions and 	performs calculations, or actions, based on those instructions. A set of instructions can allow a 	software program perform a specific function. Processors can have a single core or multiple 	cores."
+
+We could introduce a for loop that just creates a ton of tasks for us, but the problem here is that this is going to be pretty inefficient. So instead of doing that, we can leverage things like the Parallel for loop, which allows us to do exactly the same thing as a normal for loop does, but will make sure that if we have a lot of data, it may run in parallel. Notice that it doesn't guarantee that it runs in parallel because it really depends on the system. And then, of course, we have the capability of running a for each loop as well, and then we have one more thing that allows us to invoke actions, possibly in parallel. 
+
+Parallel.Invoke will choose the most effective way to run the parallel execution depending on the situation.
+
+We're introducing all of these different chunks of data that can be processed in parallel, and we don't care about the order. but one of the interesting things here is that it locked up the UI. So calling anything on the Parallel Extensions is in fact a blocking operation. This will in fact block the calling thread until the operations are all completed. And of course, if we want to solve that, we could wrap it in a Task.Run.
+
+We can also pass something called the parallelOptions. This is true for Parallel.Invoke, Parallel.For, and Parallel.ForEach. Passing the parallel options allows us to do things like passing a CancellationToken, which means that the Parallel Extensions can be canceled, because remember, they're all using the Tasks internally. And then we can set something called the DegreeOfParallelism. This here allows us to change the maximum amount of concurrent tasks. 
+
+Keep in mind though that if you misuse the parallel principles in ASP.NET, that can cause some really bad performance for all of your users. Just imagine if you have an invocation from the user. One of your actions is now running a parallel process that utilizes all the cores on your server. What happens when all the other users wants to use your system?
+
+---------------------------------------------------------------------------------
+
+Both Parallel.For, as well as Parallel.ForEach both return a ParallelLoopResult. This here will tell us if the execution completed successfully, so we can check if this completed, which means that the loop ran to completion and that we didn't receive a request to end this prematurely. 
+
+We also have something called the LowestBreakIteration, which is more common for the Parallel.For. This gives you the lowest index of where break was called. For the Parallel.ForEach, this here will give you an internal index, so that doesn't really tell you anything. 
+
+You might also wonder how do we break out of this operation? How do we tell all the consecutive operations to stop executing?
+
+Well, there is in fact a way for us to get a second parameter passed to our Parallel.ForEach, and that's the state.
+
+The second parameter passed to our action will allow us to indicate that we want to break. This means that it only ceases the execution of iterations beyond the current iteration, and it's even telling us that it's doing this at the system's earliest convenience. 
+
+We can also call Stop. If we call Stop, it'll pretty much immediately just cease execution of the parallel loop, again, at the system's earliest convenience.  
+
+	Stop and Break will not terminate the on-going parallel iterations, it is only a way to signal that no NEW iterations should be started.
+
+Pretty much the only difference between using Break and Stop is that inside our current parallel iteration, we can check if the operation has been requested to be stopped.
+
+And if there are any current ongoing iterations, they could, of course, themselves check if there has been a Stop request. You'll also notice that we don't get the LowestBreakIteration where we're using Stop. But again, that's mostly just important if we're using Parallel.For. 

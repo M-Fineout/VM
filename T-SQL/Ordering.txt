@@ -1,0 +1,70 @@
+A set which has been ordered is no longer a set, it is a cursor.
+
+The relational model deals exclusively with sets, not with cursors.
+
+	A cursor in SQL is a row level operation.
+
+The most commonly used 3-tier software architecture paradigm separates the responsibilities for presentation, business rule processing, and data management to their respective tiers. Ideally, these tiers should be completely independent both physically and logically. Keeping the separation of responsibilities is critical for modularity, maintaining well-defined boundaries and interfaces, and it allows for easy upgrading of a single tier when requirements change or when a more suitable technology becomes available. 
+
+Thus, ordering in SQL should not be heavily relied on in strictly SQL. But maybe performed within the application itself.
+
+Following execution order, ORDER BY receives a dataset after it was processed by the SELECT clause. Theoretically, the ORDER BY should only be able to see expressions that were defined in the SELECT clause.
+
+However:
+
+SQL Server and most other database management systems relax this limitation and allows for ordering by expressions, even if they were not part of the select. Since ORDER BY takes place after select, it can use aliases that were defined there and this is the only clause where we can use these aliases. 
+
+NULLs in T-SQL assume the lowest ordering value* -- This is not always the case though for all DB software.
+
+	In T-SQL, you'll need to use a conditional expression to replace NULLs with the value that is 	higher than all others. It's the only way to make NULLs sort last.
+----------------------------------------------------------------------------------
+A deterministic algorithm is an algorithim that when given the same input, it will always produce the same output.
+
+This concept applies to T-SQL queries as well:
+
+A deterministic query is a query that when executed multiple times over the same dataset is guaranteed to return the same result.
+
+When ordering by a non-unique expression, meaning that two or more rows have the same ordering expression value, SQL Server is free to return these tied rows in any order that it chooses.
+
+	ORDER BY OrderID  
+
+	OrderId | Item
+	1       | Pen
+	1       | Pencil
+
+Could be:
+
+	OrderId | Item
+	1       | Pencil
+	1       | Pen  
+
+There is no guarantee that subsequent executions of the same query, even if the underlying data does not change, we'll return the rows with equal ordering values in any consistent order. 
+
+If you need to make sure that rows are always returned in the exact same order, it is your responsibility as a SQL developer to make sure that the ORDER BY expressions make up a unique ordering value per row. 
+This can be done by explicitly adding additional expressions through the ORDER BY clause to make it unique. 
+
+These additional expressions are often referred to as tiebreakers as it is their purpose to break the ordering value tie between these rows.
+
+Thus, to alleviate the above problem, we'd use:
+
+	ORDER BY OrderId, Item
+-------------------------------------------------------------------------------------
+Paging is a technique often used for queries that return more rows that any human can process effectively. When you perform a Google search or an Amazon product search, you get back only a handful of results based on some ordering criteria such as relevance, popularity, or as the case in the query that you see, OrderID. 
+
+When you're ready to move onto the next page, you click a button and the next set of results are retrieved and displayed. 
+
+	"While there are valid arguments that paging, much like ordering, is not the responsibility of the 	database, in this case, I find that it may make sense, especially when dealing with very large 			result sets." 
+
+The total cost of caching large dataset in the presentation tier may significantly overweigh the cost required to issue additional database queries by orders of magnitude, but your mileage may vary. 
+
+T-SQL offers two ways to limit result sets. First is the top operator. The top operator is specified in the select clause before the select expressions, and after the optional distinct. It has been supported by SQL Server since the Sybase days. It is a proprietary operator and is not supported by other database management systems. 
+
+TOP does offer some unique functionality, such as the WITH TIES, which allows TOP to return any additional rows that share the same sorting value as the last row, even if it means returning more rows than what was specified for the TOP. TOP can also be used with a percentage indicator of the total number of rows, instead of a fixed number, and can even be used without an ORDER BY clause, which means that SQL Server can return any rows that it chooses. 
+
+But TOP has no support for offset specifications, and therefore, it cannot be conveniently used for paging purposes. 
+
+The standard ANSI offset fetch clause for paging is supported by T-SQL. 
+
+	OFFSET (n) ROWS FETCH (n) ROWS ONLY  (skip these rows, display or return these rows only)
+
+Most other database management systems use the non-ANSI, but very common LIMIT OFFSET syntax.

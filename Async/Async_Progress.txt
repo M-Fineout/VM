@@ -1,0 +1,18 @@
+Always introducting async and await is a safe way to know that the operation is awaited, and can prevent potential problems raised back to the caller.
+
+	**NOTE: The below statements may only apply to WPF..
+
+There is no way for a task to automatically figure out its own progress, We have to introduce something like Progress<T>
+
+	This allows us to receive a callback when we update our progress.
+
+Using the SynchronizationContext is the same thing that we use when we're using the Dispatcher or what the awaiter is using when it's communicating back to the original context. 
+
+	The Dispatcher uses the DispatcherSynchronizationContext which inherits from 	SynchronizationContext.
+
+So the original context is really just accessed using this SynchronizationContext, and our Progress class here will capture the synchronization context. So whenever we report the progress, we know that we're back to the calling context, which in our case is the UI thread.
+
+	NOTE: If there is no SynchronizationContext to capture, the callbacks will be queued on the 	      ThreadPool 
+
+Now you'll see here that we have an event called ProgressChanged. This is raised for each time that we increase our progress value. We can use this in order for us to capture whenever the progress is changed.
+

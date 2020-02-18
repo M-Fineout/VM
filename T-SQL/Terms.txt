@@ -1,0 +1,43 @@
+A SET is a collection of unique elements and it is one of the most fundamental aspects of the relational model, and consequently, of SQL. 
+
+All elements of a set are unique and distinguishable from one another, a rule that SQL doesn't always enforce. 
+
+Elements have no predefined order. A set can be one of our customers, world countries, books in a library, or orders. In the relational model, these are called relations. 
+
+Elements of a relation are called tuples and their counterparts in SQL are rows. 
+
+	A Tuple is a finite ordered list of elements
+
+This implies that rows are unique and have no order. Uniqueness of rows in a table is guaranteed by a key. 
+
+A key is an attribute or a set of attributes that uniquely identify each row. The key can be a person's name, a book's ISBN, or an order's number. Tuples consists of attributes and their SQL counterparts are the columns. Columns require unique names so we can reference each one individual.
+
+Remember: A set by definition has no order, neither the rows nor the columns. 
+
+----------------------------------------------------------------------------------------------
+
+An Alias is a friendly name that is used to reference an object.
+
+For Ex: The "employees" table, or the "countries" table.
+
+Sometimes for convenience you may specifically name the alias of a table or column.
+
+	"It is convenient and sometime necessary to assign an explicit alias to a dataset. Columns of tables and views also have a name. By default, this name is used as their alias (C1, first name, order date, ISBN). 
+	We can assign a new alias to an existing column and to an expression as any expression involving more than just the base column no longer retains the column alias."
+
+	First name and last name together can be aliased as a full name, or pie r-squared as a circled 	area, and so on. 
+-----------------------------------------------------------------------------------------------
+
+SQL is a strongly statically-typed language. This means that every expression in SQL has a specific data type. T-SQL offers several families of data types.
+
+The numeric family offers integers of varying sizes, decimals, and floating-point types. 
+
+The string family offers varying length and types of strings encoded in either ASCII or Unicode. 
+
+T-SQL binary types are technically considered part of the string family, but they do have their own distinct characteristics. We usually use binary types to store media like images, video, and audio. 
+
+Temporal types deal with representing time-related attributes. These can include dates, time, a combination of date and time to represent a specific point on the time continuum. 
+
+T-SQL provides several special use case types that support representation of hierarchies, spatial data, and the so-called unstructured data types such as XML and JSON documents.
+
+Missing data types in T-SQL: Interval and Boolean!

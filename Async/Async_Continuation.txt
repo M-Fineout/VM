@@ -1,0 +1,34 @@
+Introducing the await keyword also introduces something called a continuation. 
+
+A continuation is the block of code that's being executed after the await keyword. 
+
+The continuation is the code that's executed after the asynchronous operation is completed. And of course, if we have a second await keyword, it in its turn introduces a continuation for the code beneath that as well. 
+You can have as many await keywords as you want inside your asynchronous method. They will all introduce a continuation, which allows you to make sure that the code beneath the await keyword is only executed once the asynchronous operation that you're awaiting is completed.
+
+We can, inside the continuation, work in the same context that we originally spawned our asynchronous operation from.
+
+Thus, the await keyword introduces a continuation, allowing us to get back to the original context (thread).
+
+---------------------------
+Avoid Async void at all costs!
+It is allowed for event handlers:
+
+	if you want to have asynchronous code inside your event handlers, the delegate for an event is most certainly returning void. So the only time you're allowed to do async void is for your event handlers.
+
+Instead use async task:
+
+	async Task means that the method will in fact automatically return a reference to the ongoing operation, which you could then await somewhere else. Methods marked with async Task will automatically have a task returned without explicity having to return anything:
+	
+		public async Task SomeMethod()
+		{}
+The Task returned from an asynchronous method is a reference to the operation, its results, or potential errors.
+
+You should always use the await keyword when you call something that's asynchronous. We normally refer to these as using async all the way up. So at the top level, in this case, the Click event handler, we want to make sure that we await our asynchronous operation. Because if there is a problem inside the asynchronous operation, we want to make sure that it's validated and not just lost somewhere along the way. 
+
+if we don't use the await keyword, our exceptions will be swallowed. They will be swallowed by the Task that is a reference to the ongoing operation.
+
+NOTE: Exceptions occurring in an async void method cannot be caught.
+
+
+*****
+So when trying to catch our exceptions, it's really important that we await the Tasks all the way up the chain and make sure that if something returns a Task, we want to make sure that we await that somewhere. We don't simply want our Tasks to be fired and forgotten and then swallow potential exceptions because then we'll never know if there was a problem. So avoid async void and always make sure that you await your asynchronous operations.

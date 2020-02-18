@@ -1,0 +1,49 @@
+ Every object in SQL Server has a fully-qualified name that consists of four parts separated by periods, the server or instance name, the database name, the schema name, and finally, the object name. 
+
+Instance.Database.Schema.Object
+
+SQL Server allows us to omit parts of the full name and it will fill in the blanks for us with default values. 
+
+Omitting the instance name will default to the current instance we're connected to.
+ 
+Omitting the database name will default to the current database context of our session. 
+
+Omitting the schema name will default to the DBO schema for administrator accounts or the default schema, which was explicitly specified for the user. (DBO stands for database owner)
+
+And of course, the object name itself can't be omitted.
+
+------------------------------------------------------------------------------------------
+
+SQL is executed via clause statements
+
+	A Clause is the part of the sentence that contains the verb.
+
+FROM defines the source data set.
+
+	 this set is the only data that will be available to all following clauses. 
+
+WHERE filters the rows
+
+	Once prepared, the set is moved to the WHERE clause and the where applies a filter to eliminate rows from the set using predicates and a predicate is a logical expression that can evaluate to either true or false. (Boolean valued expressions) It is essentially a yes/no question. Every row gets evaluated using a predicate and any row for which the predicate doesn't evaluate to true is eliminated.
+
+GROUP BY combines rows into groups
+
+	In group by, individual rows can be combined into groups based on grouping expressions. Expressions consist of symbols that evaluate to a value based on their context: one plus one, quantity multiplied by price, the square root of two, and so on.
+
+HAVING is a group filter
+
+	Here, we can filter whole groups from the set, instead of individual rows. This was not possible in the where filter as these groups were not yet formed.
+
+SELECT is the list of expressions we wish to return
+
+	In the select, we provide all expressions that we're interested in sending back to the client application and this doesn't necessarily have to include all data from the source set.
+
+ORDER BY provides the presentation order
+
+	After select expressions have been evaluated, we can sort them with the ORDER BY clause.
+
+OFFSET - FETCH provides paging specification
+
+	limit the number and offset of rows that will be returned with the OFFSET FETCH clause.
+
+

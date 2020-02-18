@@ -1,0 +1,47 @@
+MVC allows for more loosely coupled systems and the net result is that we'll get software that's much more testable and maintainable. 
+In MVC, we'll typically have three building blocks. 
+
+The model contains the data the user works with. These are domain classes, as well as operations to work with this data, often referred to as the model logic or the domain logic. Typically, the classes in here represent everything in the model that we are going to work with. In the case of Bethany's Pie Shop, we'll have a Pie class, an Order class, and so on.
+
+Controllers will provide the logic that works on the data model and provide data for the view to display. 
+
+The views, finally, will contain logic to display data to the user so that it can again be processed by another controller action. 
+
+And we'll look at the flow we'll get in ASP.NET Core MVC. We'll see that a request will be arriving on one of the controller classes. Controllers have action methods, which are public methods that get associated with a URL. So when the user browses to a certain URL, the specific method on the controller will be invoked. 
+
+This in turn will trigger code on the model and then a view will be selected to be displayed with the data from the model to the user. Views in ASP.NET Core MVC are using Razor, which is the view engine. 
+
+It's important to understand that there is a difference between ASP.NET Core and ASP.NET Core MVC. ASP.NET Core is the foundation. It's the open source framework that allows us to build modern web applications. ASP.NET Core MVC is basically a layer above, and it brings with the table the ability to build web APIs and web applications. Next to MVC, other frameworks plug onto ASP.NET Core as well, such as the Razor Pages framework.
+
+Model and Repository
+
+The Model contain basic classes which contain the domain data, the model also contains the classes that manage the data. The latter would then typically be a repository class.
+
+The model should typically have a simple API, and its main goal is hiding the nitty details of how we manage or interact with the actual data from the consumer. We don't want to spread the code that does the actual data interaction throughout our code base. We want to group that code inside the model. 
+
+Classes will also perform actual data persistence:
+
+	In computer science, persistence refers to the characteristic of state that outlives the process that created it. This is achieved in practice by storing the state as data in computer data storage.
+
+This will be handled by creating a repository class, which is a class that abstracts away the details of how persistence is happening. 
+
+	The repository allows our code to use objects without knowing how they are persisted
+
+If really translated, as mentioned before, we don't want to litter our code of the application with code that persists objects. All that code should be placed in a repository class, which can then be used from our application. I've said that the model should expose a simple API towards the rest of the application. Well, that is what you see here. We're looking here at the contract, the interface of the repository called IPieRepository. This interface defines what our repository will be able to do initially. It defines a method, GetAllPies, which is returning an IEnumerable in pie, containing probably all pies in the datastore. Next, it also defines a method called GetPieById, which accepts the ID of the pie we'll want to retrieve.
+
+Before connecting to the database, we can create a MockPieRepository which implements IPieRepository for testing.
+
+	Instead of creating an instance of the repository in our Consumer class, and thus creating tight coupling, what you will do is register our repository in the container under the ConfigureServices method:
+
+	services.AddScoped<IPieRepository, MockPieRepository>();
+
+ All other classes that want to make use of a repository can then ask dependency injection container for an instance of the repository.
+
+****
+What is that AddScoped thing all about? When registering items in the container, we have a number of options to do so, and they differ in the way that the objects are created and how long they will live. 
+
+When we use AddTransient, every time we ask the container for an instance, we'll get back a new clean instance.
+ 
+The AddSingleton method results in a singleton, a single object basically, being created. Every time we request an instance, we'll get back the same instance. 
+
+AddScoped is the one we just saw, is the third option. Scoped lifetime services are created once per request. So basically, MVC creates one instance per HTTP request, but uses that same instance in other calls within the same web request.

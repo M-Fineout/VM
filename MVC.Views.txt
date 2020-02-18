@@ -1,0 +1,13 @@
+The view should in fact be considered a template, an HTML template. It contains markup code that will be used to visualize the data from the model. 
+
+If the data would be, for example, a list of pies, in that case our view can contain code that will loop over all the pies in the list and visualize each of them, for example, in a row in a table. In ASP.NET Core MVC, view templates are cshtml files. These are the files that will contain the markup code. 
+
+In the context of ASP.NET Core MVC, we can distinguish two types of views, a plain, or regular view, or a strongly-typed view. Most of the time, in the case of ASP.NET Core MVC, you'll be using strongly-typed views. In the views, we will also be making use of Razor, a markup syntax that allows us to use C# code in the web pages we are creating.
+
+By convention, views are placed in the Views folder, which is a folder under the root of the application. In there, for each controller that we have in the Controllers folder, a corresponding subfolder will be created. So if we have a PieController, we'll also have a subfolder, Pie, under the Views folder. In that folder, each view is represented by a cshtml file. So for each controller, we need to have a subfolder where all the cshtml files live.
+
+Again, by convention, the view that will be shown is called the same name as the action method. If this view can't be found, an exception will be thrown. Or the view to be shown can be passed as a parameter:
+	
+	 return View("viewToBeShown")
+
+There are several ways to pass data. Probably the most basic one is using something called the ViewBag. The ViewBag is a dynamic object that we can add data to from the controller. As you can see here, I'm adding data to the Message property. And since ViewBag is dynamic, I can add as many properties as I want and give them the name I want.
