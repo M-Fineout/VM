@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  
+  todo-db:
+    image: postgres:11.5
+    ports:
+      - "5438:5432"
+    networks:
+      - app-net
+
+  todo-web:
+    image: sixeyed/todo-list:psod
+    build:
+      context: .
+    ports:
+      - "8018:80"  
+    configs:
+    - source: todo-web-config
+      target: /app/config/config.json
+    secrets:
+    - source: todo-web-secrets
+      target: /app/config/secrets.json
+    networks:
+      - app-net
+
+networks:
+  app-net:
+
+configs:
+  todo-web-config:
+    external: true
+
+secrets:
+  todo-web-secrets:
+    external: true

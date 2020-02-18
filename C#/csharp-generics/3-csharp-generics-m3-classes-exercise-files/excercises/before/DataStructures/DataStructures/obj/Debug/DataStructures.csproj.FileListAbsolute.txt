@@ -1,0 +1,6 @@
+C:\Users\MFineout\Desktop\C#\csharp-generics\3-csharp-generics-m3-classes-exercise-files\excercises\before\DataStructures\DataStructures\bin\Debug\DataStructures.exe.config
+C:\Users\MFineout\Desktop\C#\csharp-generics\3-csharp-generics-m3-classes-exercise-files\excercises\before\DataStructures\DataStructures\bin\Debug\DataStructures.exe
+C:\Users\MFineout\Desktop\C#\csharp-generics\3-csharp-generics-m3-classes-exercise-files\excercises\before\DataStructures\DataStructures\bin\Debug\DataStructures.pdb
+C:\Users\MFineout\Desktop\C#\csharp-generics\3-csharp-generics-m3-classes-exercise-files\excercises\before\DataStructures\DataStructures\obj\Debug\DataStructures.csprojAssemblyReference.cache
+C:\Users\MFineout\Desktop\C#\csharp-generics\3-csharp-generics-m3-classes-exercise-files\excercises\before\DataStructures\DataStructures\obj\Debug\DataStructures.exe
+C:\Users\MFineout\Desktop\C#\csharp-generics\3-csharp-generics-m3-classes-exercise-files\excercises\before\DataStructures\DataStructures\obj\Debug\DataStructures.pdb

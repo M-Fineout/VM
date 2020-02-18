@@ -1,0 +1,6 @@
+C:\Users\MFineout\Desktop\C#\c-sharp-error-handling-exceptions\04\demos\before\01ThrowingEx\ConsoleCalculator\bin\Debug\ConsoleCalculator.exe.config
+C:\Users\MFineout\Desktop\C#\c-sharp-error-handling-exceptions\04\demos\before\01ThrowingEx\ConsoleCalculator\bin\Debug\ConsoleCalculator.exe
+C:\Users\MFineout\Desktop\C#\c-sharp-error-handling-exceptions\04\demos\before\01ThrowingEx\ConsoleCalculator\bin\Debug\ConsoleCalculator.pdb
+C:\Users\MFineout\Desktop\C#\c-sharp-error-handling-exceptions\04\demos\before\01ThrowingEx\ConsoleCalculator\obj\Debug\ConsoleCalculator.csprojAssemblyReference.cache
+C:\Users\MFineout\Desktop\C#\c-sharp-error-handling-exceptions\04\demos\before\01ThrowingEx\ConsoleCalculator\obj\Debug\ConsoleCalculator.exe
+C:\Users\MFineout\Desktop\C#\c-sharp-error-handling-exceptions\04\demos\before\01ThrowingEx\ConsoleCalculator\obj\Debug\ConsoleCalculator.pdb
