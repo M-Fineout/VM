@@ -1,0 +1,10 @@
+C:\Users\MFineout\Desktop\C#\c-sharp-extension-methods\03\demos\before\PublicPackages.Tests\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.dll
+C:\Users\MFineout\Desktop\C#\c-sharp-extension-methods\03\demos\before\PublicPackages.Tests\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.pdb
+C:\Users\MFineout\Desktop\C#\c-sharp-extension-methods\03\demos\before\PublicPackages.Tests\bin\Debug\netcoreapp2.2\nunit.engine.netstandard.dll
+C:\Users\MFineout\Desktop\C#\c-sharp-extension-methods\03\demos\before\PublicPackages.Tests\bin\Debug\netcoreapp2.2\PublicPackages.Tests.deps.json
+C:\Users\MFineout\Desktop\C#\c-sharp-extension-methods\03\demos\before\PublicPackages.Tests\bin\Debug\netcoreapp2.2\PublicPackages.Tests.runtimeconfig.json
+C:\Users\MFineout\Desktop\C#\c-sharp-extension-methods\03\demos\before\PublicPackages.Tests\bin\Debug\netcoreapp2.2\PublicPackages.Tests.runtimeconfig.dev.json
+C:\Users\MFineout\Desktop\C#\c-sharp-extension-methods\03\demos\before\PublicPackages.Tests\bin\Debug\netcoreapp2.2\PublicPackages.Tests.dll
+C:\Users\MFineout\Desktop\C#\c-sharp-extension-methods\03\demos\before\PublicPackages.Tests\obj\Debug\netcoreapp2.2\PublicPackages.Tests.csprojAssemblyReference.cache
+C:\Users\MFineout\Desktop\C#\c-sharp-extension-methods\03\demos\before\PublicPackages.Tests\obj\Debug\netcoreapp2.2\PublicPackages.Tests.AssemblyInfoInputs.cache
+C:\Users\MFineout\Desktop\C#\c-sharp-extension-methods\03\demos\before\PublicPackages.Tests\obj\Debug\netcoreapp2.2\PublicPackages.Tests.AssemblyInfo.cs

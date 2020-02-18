@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExtensionMethods.Contracts\ExtensionMethods.Contracts.csproj" />
+    <ProjectReference Include="..\ExtensionMethods.Shared\ExtensionMethods.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
