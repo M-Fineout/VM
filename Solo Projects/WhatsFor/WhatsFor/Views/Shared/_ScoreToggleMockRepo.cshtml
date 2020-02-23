@@ -1,0 +1,56 @@
+﻿
+@model Post
+
+
+<script type="text/javascript">
+         document.addEventListener("DOMContentLoaded", function () {
+             var button = document.getElementById('@Model.Id');
+             var test = document.getElementById("'span'@Model.Score");
+             button.addEventListener('click', function () {
+                 if (button.className == "btn btn-primary") {
+                     var score = @Model.IncrementScore(Model.Score);
+                     button.className = "btn btn-secondary";
+                     console.log(score);
+                     test.textContent = "Score: " + score; 
+                     
+                 }
+                 else  {
+                     var score = @Model.DecrementScore(Model.Score);
+                     button.className = "btn btn-primary";
+                     console.log(score);
+                     test.textContent = "Score: " + score;
+                 }
+                 
+             });
+         });
+</script>
+
+
+
+
+
+
+
+
+    @*<script>
+        function IncrementCount() {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("IncrementCount", "EditController")",
+                async: true,
+                success: function (msg) {
+                    ServiceSucceeded(msg);
+                },
+                error: function () {
+                    return "error";
+                }
+            });
+        }
+    </script>*@
+
+@*<script>
+    function IncrementCount()
+    {
+        location.Href = "@Url.Action("IncrementCount", "EditController")";
+    }
+</script>*@

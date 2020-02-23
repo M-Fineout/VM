@@ -1,0 +1,50 @@
+﻿
+@model Post
+
+<script type="text/javascript">
+         document.addEventListener("DOMContentLoaded", function () {
+             var button = document.getElementById('@Model.Id');
+             var scoreDisplay = document.getElementById("'span'@Model.Id");
+             var thumbImg = document.getElementById("'thumb'@Model.Id")
+             var tempScore = @Model.Score;
+             button.addEventListener('click', function IncreaseScore () {
+                                 
+                 if (button.className == "btn btn-primary") {
+                     tempScore += 1;
+                     button.className = "btn btn-secondary";
+                     thumbImg.className = "fas fa-pizza-slice";
+                     scoreDisplay.textContent = "Score: " + tempScore;
+
+                     $.ajax({
+                         type: "POST",
+                         url: '@Url.Action("IncreaseScoreAction", "Edit", new { postId = Model.Id })',
+                         async: true,
+                         success: function (msg) {
+                             ServiceSucceeded(msg);
+                         },
+                         error: function (msg) {
+                             return "error"
+                         }
+                     });
+                 }
+                 else {
+                     button.className = "btn btn-primary";
+                     thumbImg.className = "fas fa-thumbs-up";
+                     tempScore -= 1;
+                     scoreDisplay.textContent = "Score: " + tempScore;
+
+                     $.ajax({
+                         type: "POST",
+                         url: '@Url.Action("DecreaseScoreAction", "Edit", new { postId = Model.Id })',
+                         async: true,
+                         success: function (msg) {
+                             ServiceSucceeded(msg);
+                         },
+                         error: function (msg) {
+                             return "error"
+                         }
+                     });
+                 }
+             });
+         });
+</script>

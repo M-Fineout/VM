@@ -1,0 +1,18 @@
+﻿@model Post
+
+<script>
+    
+    function IncreaseScore() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("IncreaseScoreAction", "Edit", new { postId = Model.Id })',
+            async: true,
+            success: function (msg) {
+                ServiceSucceeded(msg);
+            },
+            error: function (msg) {
+                return "error"
+            }
+        });
+    }
+</script>

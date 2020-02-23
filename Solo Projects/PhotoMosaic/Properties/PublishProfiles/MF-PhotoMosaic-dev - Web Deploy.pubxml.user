@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhY5jIax1ukSSUX8/kCrKwwAAAAACAAAAAAAQZgAAAAEAACAAAAB7weZ+vcKb/bVmfrmE8FLZlXrA8X6T4t/7AkfrRKmoEQAAAAAOgAAAAAIAACAAAACwDa+svT6LQy7AcJPKjKd36SmozGTv16I1WVOZjLqiD4AAAACBA5hwJHNjYbv9v5rka4LCWLK7gt39NhiavR47rzifTmuHXpX7idYBLZtm1urweCxXzKxETS1dU8CijM8adnJbzKKPFuNCyM81wHpbyszXHcfcVcobskc23yxFwipii+A50FKkEwBSf6iWRsXWtY9MDfQFssQrLEdtLEUrYSyrNEAAAACZ6iKM9jAzATLoEJlRlxEGr6r99cEpCsqlHs8ox8+beLet/5GnxhChymBrIL1KC4HaH/T6ZlYQrXi52VYWXgpd</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=%28localdb%29\mssqllocaldb%3bDatabase=aspnet-PhotoMosaic-53bc9b9d-9d6a-45d4-8429-2a2761773502%3bTrusted_Connection=True%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

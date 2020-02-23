@@ -1,0 +1,13 @@
+https://api.instagram.com/oauth/authorize
+  ?app_id=791583837972431
+  &redirect_uri=https://mf-photomosaic-dev.azurewebsites.net/
+  &scope=user_profile,user_media
+  &response_type=code
+
+curl -X POST 
+  https://api.instagram.com/oauth/access_token 
+  -F app_id=791583837972431 
+  -F app_secret=4b95426ecb7174c3fc93a2943a5c2ac5 
+  -F grant_type=authorization_code
+  -F redirect_uri=https://mf-photomosaic-dev.azurewebsites.net/ 
+  -F code=AQB8BlytiAlXuz3W4pbqOCkA18SKH3aWHKg3KHsvwLY5gstzAJr-Eaz-1EghN92FMfT7GwrI0LQ8JgqHzDVFPkB50yJGEFxGMZM0HJSMW8IcHZvpNwr-aqCbS7KOlxxdJVHSKNehV-4BZjO3x5WmopceSTzIcq0zCqelv3ZNwei7auB_4mzGheWFhVjvxKqOoUnwY7YMwYYhZYBWYrZN8QPfUeIWEjCtf__kEeSfMP1Q1g

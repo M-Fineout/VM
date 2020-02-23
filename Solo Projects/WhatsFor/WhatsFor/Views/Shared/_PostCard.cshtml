@@ -1,0 +1,80 @@
+﻿
+@model Post
+
+    <div class="card w-75 mx-auto">
+        <div class="card card-columns">
+
+            <div class="card-header">
+                    <div class="row justify-content-between">
+                        <h5 class="card-title">@Model.FoodPic.Name</h5>
+                        <span class="align-self-start align-text-top text-muted">@Model.FoodPic.DatePosted</span>
+                    </div>
+                    <div class="row justify-content-between">
+                        <span class="card-subtitle text-muted">Found at: @Model.FoodPic.Location</span>
+                        <span>Posted By: @Model.FoodPic.PostUserName</span>
+                    </div>
+            </div>
+            <div class="card-body">
+                <img class="card-img-top" src="@Model.FoodPic.PicLink" alt="@Model.FoodPic.Description" title="@Model.FoodPic.Description"/>
+                <p class="card-text">@Model.FoodPic.Description</p>
+            </div>
+
+            <!--If user is signed in -->
+            @if (!String.IsNullOrEmpty(this.User.Identity.Name))
+            {
+                if (Model.PostUserName == this.User.Identity.Name)
+                {
+                    <div class="card-footer">
+                        <div class="row justify-content-between">                     
+                            <div class="row">
+                                <span class="col-auto align-self-center" id="'span'@Model.Id'User'">Score: @Model.Score </span>
+                                <div class="bs-tooltip-auto" data-toggle="tooltip" title="You can't like your own posts">
+                                    <a id="@Model.Id'User'" class="btn btn-primary disabled">
+                                        <i id="'thumb'@Model.Id'User'" class="fas fa-thumbs-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        <div>
+                            <a class="btn btn-secondary" title="Edit post" asp-action="EditPost" asp-controller="Edit" asp-route-postId="@Model.Id">Edit</a>
+                        </div>
+                        </div>
+                    </div>
+                }
+                else //else if (user hasLiked post -- )
+                {
+                    <div class="card-footer">
+                        <div class="row justify-content-between">
+                            <div class="row">
+                                <span class="col-auto align-self-center" id="'span'@Model.Id">Score: @Model.Score</span>
+                                <button type="submit" id="@Model.Id" class="btn btn-primary" onclick="IncreaseScore()">
+                                    <i id="'thumb'@Model.Id" class="fas fa-thumbs-up"></i>
+                                </button>
+                            </div>
+                            <div class="bs-tooltip-auto" data-toggle="tooltip" title="You can't edit posts that don't belong to you!">
+                                <a class="btn btn-secondary disabled">
+                                    Edit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="card-footer">
+                    <span id="'span'@Model.Id'NotSigned">Score: @Model.Score</span>
+                    <div class="bs-tooltip-auto" data-toggle="tooltip" title="Sign-in to react to posts">
+                        <a id="@Model.Id'NotSigned'" class="btn btn-danger disabled">
+                            <i id="'thumb'@Model.Id" class="fas fa-cloud-rain"></i>
+                        </a>
+                    </div>
+                    <span>Posted On: @Model.FoodPic.DatePosted</span>
+                    <div class="bs-tooltip-auto" data-toggle="tooltip" title="You must be signed-in to edit posts">
+                        <a class="btn btn-secondary disabled">
+                            Edit
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>

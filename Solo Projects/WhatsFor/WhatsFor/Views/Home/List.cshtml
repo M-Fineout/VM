@@ -1,0 +1,45 @@
+﻿
+@model ListViewModel
+
+@{
+    ViewData["Title"] = "List";
+}
+
+@if (TempData["Message"] != null) // TempData triggered on update or add methods
+{
+    <div class="alert alert-info">@TempData["Message"]</div>
+}
+
+<div class="row justify-content-center">
+    <h1 class="">List of Posts</h1>
+</div>
+
+@foreach (var post in Model.AllPosts)
+{   
+    <partial name="_PostCard" model="post" />
+    <partial name="_ScoreToggleDB" model="post" />
+    <br />
+}
+
+    @if (!Model._signInManager.IsSignedIn(User))
+    {
+        <div class="w-75 mx-auto">
+            <div class="bs-tooltip-right" data-toggle="tooltip" title="Log in to add or edit posts">
+                <a class="disabled btn btn-warning">
+                    Add Post
+                </a>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div class="w-75 mx-auto">
+            <a class="btn btn-primary" title="Add a new post" asp-area="" asp-controller="Edit" asp-action="EditPost">
+                Add Post
+            </a>
+        </div>
+    }
+
+
+
