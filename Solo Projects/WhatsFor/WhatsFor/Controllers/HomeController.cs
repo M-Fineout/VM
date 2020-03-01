@@ -45,6 +45,7 @@ namespace WhatsFor.Controllers
             return View();
         }
 
+        [HttpGet]
         public ViewResult List()
         {
             // Is there a better way to get all of these posts to memory
@@ -64,7 +65,11 @@ namespace WhatsFor.Controllers
         [HttpPost]
         public IActionResult SubmitPost(Post post)
         {
-             
+             //TODO: If ImgUrl && ImgUpload !string.IsNullOrWhiteSpace -- return error
+                //TempData["Message"] = "Please provide only an image Url OR an image upload..
+
+            //TODO: Implement Img upload method here if (post.ImgUpload != null) -- put method in PostRepo??
+
             if (post.Id > 0)
             {
                 PostRepository.UpdatePost(post, this.User.Identity.Name);

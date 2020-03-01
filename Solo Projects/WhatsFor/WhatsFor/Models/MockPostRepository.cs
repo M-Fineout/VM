@@ -55,7 +55,7 @@ namespace WhatsFor.Models
             //{
                 post.FoodPic.Name = updatedPost.FoodPic.Name;
                 post.FoodPic.Location = updatedPost.FoodPic.Location;
-                post.FoodPic.PicLink = updatedPost.FoodPic.PicLink;
+                post.FoodPic.ImgUrl = updatedPost.FoodPic.ImgUrl;
                 post.FoodPic.Description = updatedPost.FoodPic.Description;
               //  post.FoodPic.DatePosted = updatedPost.FoodPic.DatePosted;
             //}

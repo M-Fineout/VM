@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MFineout\\Source\\Repos\\WhatsFor\\WhatsFor\\WhatsFor.csproj": {}
+    "C:\\Users\\MFineout\\Desktop\\VM\\Solo Projects\\WhatsFor\\WhatsFor\\WhatsFor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MFineout\\Source\\Repos\\WhatsFor\\WhatsFor\\WhatsFor.csproj": {
+    "C:\\Users\\MFineout\\Desktop\\VM\\Solo Projects\\WhatsFor\\WhatsFor\\WhatsFor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MFineout\\Source\\Repos\\WhatsFor\\WhatsFor\\WhatsFor.csproj",
+        "projectUniqueName": "C:\\Users\\MFineout\\Desktop\\VM\\Solo Projects\\WhatsFor\\WhatsFor\\WhatsFor.csproj",
         "projectName": "WhatsFor",
-        "projectPath": "C:\\Users\\MFineout\\Source\\Repos\\WhatsFor\\WhatsFor\\WhatsFor.csproj",
+        "projectPath": "C:\\Users\\MFineout\\Desktop\\VM\\Solo Projects\\WhatsFor\\WhatsFor\\WhatsFor.csproj",
         "packagesPath": "C:\\Users\\MFineout\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MFineout\\Source\\Repos\\WhatsFor\\WhatsFor\\obj\\",
+        "outputPath": "C:\\Users\\MFineout\\Desktop\\VM\\Solo Projects\\WhatsFor\\WhatsFor\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -15,7 +15,7 @@
                     </div>
             </div>
             <div class="card-body">
-                <img class="card-img-top" src="@Model.FoodPic.PicLink" alt="@Model.FoodPic.Description" title="@Model.FoodPic.Description"/>
+                <img class="card-img-top" src="@Model.FoodPic.ImgUrl" alt="@Model.FoodPic.Description" title="@Model.FoodPic.Description"/>
                 <p class="card-text">@Model.FoodPic.Description</p>
             </div>
 
@@ -61,20 +61,24 @@
             }
             else
             {
-                <div class="card-footer">
-                    <span id="'span'@Model.Id'NotSigned">Score: @Model.Score</span>
+        <div class="card-footer">
+            <div class="row justify-content-between">
+                <div class="row">
+                    <span class="col-auto align-self-center" id="'span'@Model.Id'NotSigned">Score: @Model.Score</span>
                     <div class="bs-tooltip-auto" data-toggle="tooltip" title="Sign-in to react to posts">
-                        <a id="@Model.Id'NotSigned'" class="btn btn-danger disabled">
-                            <i id="'thumb'@Model.Id" class="fas fa-cloud-rain"></i>
-                        </a>
-                    </div>
-                    <span>Posted On: @Model.FoodPic.DatePosted</span>
-                    <div class="bs-tooltip-auto" data-toggle="tooltip" title="You must be signed-in to edit posts">
-                        <a class="btn btn-secondary disabled">
-                            Edit
+                        <a id="@Model.Id'NotSigned'" class="btn btn-primary disabled">
+                            <i id="'thumb'@Model.Id" class="fas fa-thumbs-up"></i>
                         </a>
                     </div>
                 </div>
+                <div class="bs-tooltip-auto" data-toggle="tooltip" title="You must be signed-in to edit posts">
+                    <a class="btn btn-secondary disabled">
+                        Edit
+                    </a>
+                </div>
+            </div>
+        </div>
             }
+
         </div>
     </div>

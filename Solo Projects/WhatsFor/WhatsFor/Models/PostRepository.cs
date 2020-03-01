@@ -20,7 +20,7 @@ namespace WhatsFor.Models
         public Post CreatePost(string postUserName, Post newPost)
         {
 
-            newPost.FoodPic.DatePosted = DateTimeOffset.Now.LocalDateTime;
+            //newPost.FoodPic.DatePosted = DateTimeOffset.UtcNow.LocalDateTime;
             //newPost.FoodPic.Id = Db.FoodPics.Max(x => x.Id) + 1;
 
             Db.Add(newPost);
@@ -71,8 +71,11 @@ namespace WhatsFor.Models
         {
             var post = GetPost(postId);
             post.Score += 1;
+
+            //TODO:
             //Add this user to the Post's list of HasLiked usernames.
             //post.HasLiked.Add(postUserName);
+
             //Update post in the Db
             UpdatePostScore(post, postUserName);
             //Save changes
@@ -84,9 +87,12 @@ namespace WhatsFor.Models
         {
             var post = GetPost(postId);
             post.Score -= 1;
+
+            //TODO:
             //Remove this user from the Post's list of HasLiked usernames.
-            //This could cause errors if user has not liked it yet.
+            //NOTE: This could cause errors if user has not liked it yet..
             //post.HasLiked.Remove(postUserName);
+
             //Update post in the Db
             UpdatePostScore(post, postUserName);
             //Save changes
