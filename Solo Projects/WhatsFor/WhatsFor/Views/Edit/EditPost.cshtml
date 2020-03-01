@@ -8,11 +8,11 @@
 
 <h4>Update or edit your post</h4>
 
-<form asp-action="SubmitPost" method="post" class="form-group" role="form">
+<form asp-action="SubmitPost" method="post" enctype="multipart/form-data" class="form-group" role="form">
     <div asp-validation-summary="All" class="text-danger"></div>
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="FoodPic.Id" />
-    <input type="hidden" asp-for="Score"/>
+    <input type="hidden" asp-for="Score" />
 
     <div class="form-group">
         <label asp-for="FoodPic.Name" class="col-md-2 control-label"></label>
@@ -31,13 +31,23 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="FoodPic.PicLink" class="col-md-2 control-label"></label>
+        <label asp-for="FoodPic.ImgUrl" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="FoodPic.PicLink" class="form-control bs-tooltip-right" data-toggle="tooltip" title="Enter the picture URL here." />
+            <input asp-for="FoodPic.ImgUrl" class="form-control bs-tooltip-right" data-toggle="tooltip" title="Enter the picture URL here." />
             <img src="Model.FoodPic.PicLink" />
-            <span asp-validation-for="FoodPic.PicLink" class="text-danger"></span>
+            <span asp-validation-for="FoodPic.ImgUrl" class="text-danger"></span>
         </div>
     </div>
+
+    <!-- Upload form goes here -->
+    @*<div class="form-group">
+        <label asp-for="FoodPic.PH" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="FoodPic.PH" class="form-control bs-tooltip-right" data-toggle="tooltip" title="Enter the picture URL here." />
+            <img src="Model.FoodPic.PicLink" />
+            <span asp-validation-for="FoodPic.PH" class="text-danger"></span>
+        </div>
+    </div>*@
 
     <div class="form-group">
         <label asp-for="FoodPic.Description" class="col-md-2 control-label"></label>
@@ -48,17 +58,17 @@
         </div>
     </div>
 
-    <input type="hidden" asp-for="FoodPic.PostUserName" value="@this.User.Identity.Name"/>
-    <input type="hidden" asp-for="PostUserName" value="@this.User.Identity.Name"/>
-    <input type="hidden" asp-for="FoodPic.DatePosted" value="@DateTimeOffset.Now" />
+    <input type="hidden" asp-for="FoodPic.PostUserName" value="@this.User.Identity.Name" />
+    <input type="hidden" asp-for="PostUserName" value="@this.User.Identity.Name" />
+    <input type="hidden" asp-for="FoodPic.DatePosted" value="@DateTimeOffset.UtcNow" />
 
-        @*<div class="form-group">
-                <label asp-for="FoodPic.Tags"></label>
+    @*<div class="form-group">
+            <label asp-for="FoodPic.Tags"></label>
 
-                    <select asp-for="FoodPic.Tags" asp-items="" class="form-control" />
-                    <span asp-validation-for="FoodPic.Tags" class="text-danger"></span>
+                <select asp-for="FoodPic.Tags" asp-items="" class="form-control" />
+                <span asp-validation-for="FoodPic.Tags" class="text-danger"></span>
 
-            </div>*@
+        </div>*@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-5">

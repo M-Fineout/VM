@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,8 +25,15 @@ namespace WhatsFor.Models
         [Display(Name = "Location")]
         public string Location { get; set; }
 
-        [Required(ErrorMessage = "Picture uploads are required")]
-        public string PicLink { get; set; }
+        //TODO: Make this a conditional with ImgUpload
+       // [Required(ErrorMessage = "Picture uploads are required")]
+        public string ImgUrl { get; set; }
+
+
+        //File to upload and store in wwwroot
+        [Display(Name = "Image Upload")]
+        public IFormFile ImgUpload { get; set; }
+
 
         [Display(Name = "Description")]
         [StringLength(400)]
